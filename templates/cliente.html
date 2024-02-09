@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'general/css/base.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script type="text/javascript">
+      var user = '{{request.user}}';
+
+      var csrftoken = getCookie('csrftoken');
+
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+    </script>
+    {% block 'head' %}{% endblock %}
+
+    <title>{% block 'title' %}{% endblock %}</title>
+  </head>
+  <body>
+    
+      <div class="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">PÃO QUENTE</div>
+            <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a href="{% url 'principal' %}">
+              <i class='bx bx-grid-alt'></i>
+              <span class="links_name">Página inicial</span>
+            </a>
+            <span class="tooltip">Página inicial</span>
+          </li>
+          <li>
+            <a href="{% url 'perfil' %}">
+              <i class='bx bx-cog' ></i>
+              <span class="links_name">Configurações</span>
+            </a>
+            <span class="tooltip">Configurações</span>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}" id="logout-link">
+                <i class='bx bx-log-out' ></i>
+                <span class="links_name">Sair</span>
+            </a>
+            <span class="tooltip">Sair</span>
+          </li>
+        </ul>
+      </div>
+      
+      <section class="home-section">
+          {% block 'dashboard'%}
+          {% endblock %}
+
+      </section>
+
+    {% block 'body' %}
+    {% endblock %}
+    <script src="{% static 'general/js/base.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
