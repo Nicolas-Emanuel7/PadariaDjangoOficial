@@ -21,7 +21,6 @@ def usuario_cadastro(request):
         nome = request.POST.get('nome')
         sobrenome = request.POST.get('sobrenome')
         telefone = request.POST.get('telefone')
-        endereco = request.POST.get('endereco')
         email = request.POST.get('email')
         password = request.POST.get('senha')
         cpf = request.POST.get('cpf')
@@ -31,12 +30,12 @@ def usuario_cadastro(request):
         user = Usuario.objects.filter(email=email)
 
         if user.exists():
-            return render(request, 'usuario_cadastro.html', {'nome': username, 'sobrenome':sobrenome, 'telefone': telefone, 'endereco': endereco, 'permissao': permissao, 'erro': 'Usuário já cadastrado!'})
+            return render(request, 'usuario_cadastro.html', {'nome': username, 'sobrenome':sobrenome, 'telefone': telefone, 'permissao': permissao, 'erro': 'Usuário já cadastrado!'})
         if not re.fullmatch(re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'), email):
-            return render(request, 'usuario_cadastro.html', {'nome': username, 'sobrenome':sobrenome, 'telefone': telefone, 'endereco': endereco, 'cpf': cpf, 'permissao': permissao, 'erro': 'E-mail inválido!'})
+            return render(request, 'usuario_cadastro.html', {'nome': username, 'sobrenome':sobrenome, 'telefone': telefone, 'cpf': cpf, 'permissao': permissao, 'erro': 'E-mail inválido!'})
         
-        usuario = Usuario.objects.create(username=username, first_name=nome, last_name=sobrenome, cpf=cpf, telefone=telefone, endereco=endereco, email=email, password=password, permissao=permissao)
-        print(username, nome, sobrenome, cpf, email, password, telefone, endereco, permissao)
+        usuario = Usuario.objects.create(username=username, first_name=nome, last_name=sobrenome, cpf=cpf, telefone=telefone, email=email, password=password, permissao=permissao)
+        print(username, nome, sobrenome, cpf, email, password, telefone, permissao)
         usuario.save()
         return render(request, 'usuario_cadastro.html')
     else:
