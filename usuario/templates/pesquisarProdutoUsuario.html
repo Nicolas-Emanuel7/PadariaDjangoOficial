@@ -6,7 +6,56 @@
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+        <!--main-->
+    <div class="main">
+         <!-- Barra de navegação principal -->
+        <div class="main-navbar">
+            <ion-icon class="menu-toggle" name="menu-outline"></ion-icon> <!-- Ícone de alternância de menu -->
 
+            <div class="search"><!-- Barra de pesquisa -->
+                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisar_produto' %}">
+                    <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}"> <!-- Campo de entrada para pesquisa -->
+                    <button class="search-btn">Pesquisar</button><!-- Botão de pesquisa -->
+                </form>
+            </div>
+            <!-- Perfil do usuário e carrinho de compras -->
+            <div class="profile">
+                <a class="cart" href="{% url 'carrinho' %}"><ion-icon name="cart-outline"></ion-icon></a><!-- Link para o carrinho de compras -->
+                <p id="cart-total">{{carrinho_itens|floatformat:0}}</p><!-- Contagem de itens no carrinho -->
+            </div>
+            
+        </div>
+        <!--Menu-->
+        <br>
+        <br>
+        <div class="main-menus">
+            <!-- Lista de resultados da pesquisa de produtos -->
+            <div class="main-detail">
+                <h2 class="main-title">Resultados da Pesquisa</h2>
+                <div class="detail-wrapper"> <!-- Wrapper para os detalhes dos produtos -->
+                    {% for produto in resultados %} <!-- Loop sobre os resultados da pesquisa -->
+                    <div class="detail-card produto-card {{ produto.categoria }}" >
+                        <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}"><!-- Link para a página do produto -->
+                            <img class="detail-img" src="{{ produto.imagem.url }}" alt="{{ produto.nome_produto }}"> <!-- Imagem do produto -->
+                        </a>
+                        <div class="detail-desc"> <!-- Descrição do produto -->
+                            <div class="detail-name">
+                                <h4>{{produto.nome_produto}}</h4>
+                                <p class="detail-sub">{{produto.descricao}}</p>
+                                <p class="price">R$ {{produto.preco|floatformat:2}}</p>
+                            </div>
+                        </div>
+                        <div class="row"><!-- Botão para adicionar ao carrinho -->
+                            <button type="button" data-produto="{{produto.id_produto}}" data-action="add" class="btn botao-add-carrinho add-btn update-cart">Add ao Carrinho</button>
+                        </div>
+                    </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 
 {% endblock %}

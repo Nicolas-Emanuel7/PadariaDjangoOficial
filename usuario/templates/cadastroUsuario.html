@@ -6,7 +6,50 @@
 {% endblock %}
 
 {% block 'dashboard' %}
-
+<body> <!-- Formulário de Cadastro -->
+      <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="{% url 'cadastro' %}" method="POST">  <!-- O formulário envia dados para a URL 'cadastro' quando submetido -->
+                {% csrf_token %}
+                <h1>Criar Conta</h1>
+                <span>Insira seus dados para se registrar</span>  <!-- Campos de entrada para nome, sobrenome, CPF, telefone, endereço, e-mail e senha -->
+                <input type="text" placeholder="Nome" name="nome" value="{{nome}}" />
+                <input type="text" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}" />
+                <input type="text" placeholder="CPF" name="cpf" value="{{cpf}}" />
+                <input type="text" placeholder="Telefone" name="telefone" value="{{telefone}}" />
+                <input type="text" placeholder="Endereço" name="endereco" value="{{endereco}}" />
+                <input type="email" placeholder="E-mail" name="email" value="{{email}}" />
+                <input type="password" placeholder="Senha" name="senha" value="{{senha}}" />
+                <button class="button" value="Cadastrar">Cadastrar</button> <!-- Botão para submeter o formulário de cadastro -->
+            </form>
+        </div> <!-- Formulário de Login -->
+        <div class="form-container sign-in">
+            <form action="{% url 'login' %}" method="POST"> <!-- O formulário envia dados para a URL 'login' quando submetido -->
+                {% csrf_token %}
+                <h1>Fazer Login</h1>
+                <span>Faça Login no sistema</span>  <!-- Campos de entrada para e-mail e senha -->
+                <input type="email" placeholder="E-Mail" name="email" value="{{email}}" />
+                <input type="password" placeholder="Senha" name="senha" value="{{password}}" />
+                <br>
+                <button class="button" value="Login">Login</button> <!-- Botão para submeter o formulário de login -->
+            </form>
+        </div>
+         <!--Este é um contêiner que envolve a lógica de alternância entre os dois painéis.-->
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Bem Vindo!</h1>
+                    <p>Para se manter conectado conosco, faça login com suas informações pessoais</p>
+                    <button  id="login">Login</button> <!-- Botão para acionar a ação de login (que é controlada por scripts JavaScript) -->
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Olá, Amigo!</h1>
+                    <p>Insira seus dados pessoais e comece a fazer pedidos conosco</p>
+                    <button  id="register">Cadastrar</button> <!-- Botão para acionar a ação de Cadastro (que é controlada por scripts JavaScript) -->
+            </div>
+        </div>
+      </div>
+</body>
 
 
 {% endblock %}

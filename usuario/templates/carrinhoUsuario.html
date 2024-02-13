@@ -6,7 +6,53 @@
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+                <!-- Botão para continuar comprando -->
+                <a class="btn btn-outline-dark" href="{% url 'principal' %}">&#x2190; Continuar Comprando</a>
+                <br>
+                <br>
+                <table class="table"> <!-- Tabela exibindo informações resumidas do carrinho -->
+                    <tr>
+                        <th><h5>Itens: <strong>{{pedido.get_carrinho_itens}}</strong></h5></th>
+                        <th><h5>Total: <strong>R$ {{pedido.get_carrinho_total|floatformat:2}}</strong></h5></th>
+                        <th>
+                            <a style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Finalizar Compra</a>
+                        </th>
+                    </tr>
+                </table>
+            </div>
 
+            <br>
+            <div class="box-element">
+                <div class="cart-row">
+                    <div style="flex:2"></div>
+                    <div style="flex:2"><h5>Produto</h5></div>
+                    <div style="flex:1"><h5>Preço</h5></div>
+                    <div style="flex:1"><h5>Quantidade</h5></div>
+                    <div style="flex:1"><h5>Total</h5></div>
+                </div>
+                {% for item in itens %}
+                <div class="cart-row">   <!-- Loop sobre os itens no carrinho --> 
+                    <div style="flex:2"><img class="row-image" src="{{item.produto.imageURL}}"></div> 
+                    <div style="flex:2"><strong>{{item.produto.nome_produto}}</strong></div>
+                    <div style="flex:1"><strong>R$ {{item.produto.preco|floatformat:2}}</strong></div>
+                    <div style="flex:1">
+                        <p class="quantity">{{item.quantidade_comprada}}</p>
+                        <div class="quantity"> <!-- Botões de aumento e diminuição de quantidade -->
+                            <img data-produto={{item.produto.id_produto}} data-action="add" class="chg-quantity update-cart" src="{% static 'usuarios/img/mais.png' %}">
+                            <img data-produto={{item.produto.id_produto}} data-action="remove" class="chg-quantity update-cart" src="{% static 'usuarios/img/menos.png' %}">
+                        </div>
+                    </div> <!-- Total para o item -->
+                    <div style="flex:1">R$ {{item.get_total|floatformat:2}} R$</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
 
 
 {% endblock %}

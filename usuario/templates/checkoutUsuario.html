@@ -6,7 +6,61 @@
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+                <form id="form">
+                    {% csrf_token %}
+                    <div id="informacao-entrega"> <!-- Seção de informações de entrega -->
+                        <hr>
+                        <p>Informação de entrega:</p> <!-- Campos do formulário para endereço, bairro, cidade e estado -->
+                        <hr>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="endereco" placeholder="Endereço">
+                        </div>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="bairro" placeholder="Bairro">
+                        </div>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="cidade" placeholder="Cidade">
+                        </div>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="estado" placeholder="Estado">
+                        </div>
+                    </div>
+                    <hr> <!-- Botão de envio do formulário -->
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                </form>
+            </div>
+            <br>
+            <div class="box-element hidden" id="payment-info">
+                <small>Opção de Pagamento</small>
+                <button id="make-payment">Forma de pagamento</button>
+            </div>
+        </div>
 
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+                <a class="btn btn-outline-dark" href="{% url 'carrinho' %}">&#x2190; Voltar ao Carrinho</a>
+                <hr>
+                <h3>Resumo do Pedido</h3>
+                <hr>
+                {% for item in itens %}
+                <div class="cart-row">
+                    <div style="flex:2"><img class="row-image" src="{{item.produto.imageURL}}"></div>
+                    <div style="flex:2">{{item.produto.nome_produto}}</div>
+                    <div style="flex:1">{{item.produto.preco|floatformat:2}} R$</div>
+                    <div style="flex:1">{{item.quantidade_comprada}}</div>
+                </div>
+                {% endfor %}
+                <!-- Total de itens no carrinho e total a pagar -->
+                <h5>Itens:  {{pedido.get_carrinho_itens}}</h5>
+                <h5>Total:  R$ {{pedido.get_carrinho_total|floatformat:2}}</h5>
+            </div>
+        </div>
+    </div>
+</body>
 
 
 {% endblock %}

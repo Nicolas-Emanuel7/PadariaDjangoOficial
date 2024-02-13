@@ -6,7 +6,112 @@
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <!--main-->
+    <div class="main">
+        <!-- Barra de navegação principal -->
+        <div class="main-navbar">
+            <ion-icon class="menu-toggle" name="menu-outline"></ion-icon><!-- Ícone de alternância de menu -->
 
+            <div class="search"> <!-- Barra de pesquisa -->
+                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisar_produto' %}">
+                    <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}"> <!-- Campo de entrada para pesquisa -->
+                    <button class="search-btn">Pesquisar</button> <!-- Botão de pesquisa -->
+                </form>
+            </div>
+
+            <div class="profile"><!-- Perfil do usuário e carrinho de compras -->
+                <a class="cart" href="{% url 'carrinho' %}"><ion-icon name="cart-outline"></ion-icon></a><!-- Link para o carrinho de compras -->
+                <p id="cart-total">{{carrinho_itens|floatformat:0}}</p><!-- Contagem de itens no carrinho -->
+            </div>
+            
+        </div>
+        <!-- Destaque principal -->
+        <div class="main-highlight">
+            <div class="main-header">
+                <h2 class="main-title">Recomendações</h2>
+            </div>
+            <!-- Menu de destaque -->
+            <div class="highlight-wrapper">
+                {% for produto in produtos|slice:":4" %} <!-- Loop sobre produtos para destaque -->
+                    <a class="highlight-card" href="{% url 'produto' produto.id_produto %}"><!-- Cartão de destaque para cada produto -->
+                        <img class="highlight-img" src="{{ produto.imagem.url }}" alt="{{ produto.nome_produto }}">
+                        <div class="highlight-desc">
+                            <h4>{{ produto.nome_produto }}</h4>
+                            <p>R$ {{ produto.preco|floatformat:2 }}</p>
+                        </div>
+                    </a> 
+                {% endfor %}
+            </div>
+        </div>
+        <!--Menu-->
+        <div class="main-menus">
+            <!--Filter-->
+            <div class="main-filter">
+                <div>
+                    <h2 class="main-title">Menu<br>Categoria</h2>
+                </div>
+                <div class="filter-wrapper">
+                    <div class="filter-card category-filter" data-category="cardapio">
+                        <div class="filter-icon">
+                            <ion-icon name="restaurant-outline"></ion-icon>
+                        </div>
+                        <p>Cardápio</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="salgado">
+                        <div class="filter-icon">
+                            <ion-icon name="fast-food-outline"></ion-icon>
+                        </div>
+                        <p>Salgados</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="doce">
+                        <div class="filter-icon">
+                            <ion-icon name="ice-cream-outline"></ion-icon>
+                        </div>
+                        <p>Doces</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="bolo">
+                        <div class="filter-icon">
+                            <i class='bx bx-cake'></i>
+                        </div>
+                        <p>Bolos</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="bebida">
+                        <div class="filter-icon">
+                            <ion-icon name="cafe-outline"></ion-icon>
+                        </div>
+                        <p>Bebidas</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="divider">  <!-- Linha divisória -->
+            <!--List of food-->
+            <div class="main-detail">
+                <h2 class="main-title">Faça seu pedido</h2>
+                <div class="detail-wrapper">
+                    {% for produto in produtos %}
+                    <div class="detail-card produto-card {{ produto.categoria }}">
+                        <a class="detail-icon" href="{% url 'produto' produto.id_produto %}">
+                            <img class="detail-img" src="{{ produto.imageURL }}" alt="{{ produto.nome_produto }}">
+                        </a>
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>{{produto.nome_produto}}</h4>
+                                <p class="detail-sub">{{produto.descricao}}</p>
+                                <p class="price">R$ {{produto.preco|floatformat:2}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" data-produto="{{produto.id_produto}}" data-action="add" class="btn botao-add-carrinho add-btn update-cart">Add ao Carrinho</button>
+                        </div>
+                    </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 
 
 {% endblock %}
