@@ -64,7 +64,39 @@ def gerente_add_funcionario(request):
         return render(request, 'funcionarios.html')
     
 def gerente_add_produto(request):
-    pass
+    categorias = Produto.CATEGORIA_CHOICES
+    if request.method == 'POST':
+        nome_produto = request.POST.get('nome_produto')
+        descricao = request.POST.get('descricao')
+        preco = request.POST.get('preco')
+        categoria = request.POST.get('categoria')
+        imagem = request.FILES.get('imagem')
+
+        # Salvando os dados do produto no banco de dados
+        produto = Produto.objects.create(nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, imagem=imagem)
+        produto.save()
+        print(produto)
+
+        # Itera sobre os dados enviados pelo formulário para capturar os ingredientes
+        ingredientes = []
+        for key, value in request.POST.items():
+            if key.startswith('nome_ingrediente_'):
+                ingrediente_id = key.split('_')[-1]
+                ingrediente_nome = value
+                unidade_medida = request.POST.get('unidade_medida_' + ingrediente_id)
+                ingredientes.append((ingrediente_nome, unidade_medida))
+        
+        print(ingredientes)
+        
+        for ingrediente_nome, unidade_medida in ingredientes:
+            ingrediente, created = Ingrediente.objects.get_or_create(nome_ingrediente=ingrediente_nome, unidade_Medida=unidade_medida)
+            produto_ingrediente = ProdutoIngrediente.objects.create(produto=produto, ingrediente=ingrediente)
+
+        # Redirecionar para alguma página de sucesso ou para a página inicial
+        return redirect('gerente_principal')
+
+    # Se o método da requisição não for POST, renderizar o formulário vazio
+    return render(request, 'adicionarProduto.html', {'categorias': categorias})
         
         
 # FUNÇÕES DE BUSCA
@@ -103,21 +135,23 @@ def gerente_att_funcionario(request, id):
     
 #funções de deletar
     
-def gerente_excluir_produto(request):
-    pass
+def gerente_excluir_produto(request, id_produto):
+    produto = Produto.objects.get(id_produto=id_produto)
+    print(produto)
+    produto.delete()
+    return redirect('gerente_principal')
 
-def gerente_excluir_pedido(request):
-    pass
+def gerente_excluir_pedido(request, id_pedido):
+    pedido = Pedido.objects.get(id_pedido=id_pedido)
+    print(pedido)
+    pedido.delete()
+    return redirect('gerente_lista_pedidos')
 
-def gerente_excluir_funcionario(request, id):
-    funcionario = get_object_or_404(Funcionario)
-
-    if request.method == 'POST':
-        # Se a solicitação é um POST, exclua o funcionário
-        funcionario.delete()
-        return redirect('lista_funcionarios')  # Redirecione para a página de lista de funcionários após a exclusão
-
-    return render(request, 'excluir_funcionario.html', {'funcionario': funcionario})
+def gerente_excluir_funcionario(request, id_funcionario):
+    funcionario = Funcionario.objects.get(id_funcionario=id_funcionario)
+    print(funcionario)
+    funcionario.delete()
+    return redirect('gerente_lista_funcionarios')
 
 #funções de dados
 

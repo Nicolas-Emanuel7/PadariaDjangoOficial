@@ -14,6 +14,7 @@ urlpatterns = [
     # PEDIDOS # 
     path('gerente_lista_pedidos/', views.gerente_lista_pedidos, name='gerente_lista_pedidos'),
     path('nota_pedido/<int:id_pedido>', views.nota_pedido, name='nota_pedido'),
+    path('gerente_excluir_pedido/<int:id_pedido>/', views.gerente_excluir_pedido, name='gerente_excluir_pedido'),
 
     # CLIENTES #
     path('gerente_lista_clientes/' , views.gerente_lista_clientes, name='gerente_lista_clientes'),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('gerente_att_produto/<int:id_produto>', views.gerente_att_produto, name='gerente_att_produto'),
     path('gerente_produto/<int:id_produto>/', views.gerente_produto, name='gerente_produto'),
     path('gerente_pesquisa_produto/', views.gerente_pesquisar_produto, name='gerente_pesquisa_produto'), 
+    path('gerente_excluir_produto/<int:id_produto>/', views.gerente_excluir_produto, name='gerente_excluir_produto'),
 
     # FUNÇÕES DE DADOS #
     path('dados_funcionario/', views.dados_funcionario, name='dados_funcionario'),
