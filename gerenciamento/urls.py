@@ -31,6 +31,7 @@ urlpatterns = [
     path('gerente_produto/<int:id_produto>/', views.gerente_produto, name='gerente_produto'),
     path('gerente_pesquisa_produto/', views.gerente_pesquisar_produto, name='gerente_pesquisa_produto'), 
     path('gerente_excluir_produto/<int:id_produto>/', views.gerente_excluir_produto, name='gerente_excluir_produto'),
+    path('gerente_excluir_ingrediente/<int:id_ingrediente>/<int:id_produto>/', views.gerente_excluir_ingrediente, name='gerente_excluir_ingrediente'),
 
     # FUNÇÕES DE DADOS #
     path('dados_funcionario/', views.dados_funcionario, name='dados_funcionario'),
