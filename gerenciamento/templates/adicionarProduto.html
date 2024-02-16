@@ -2,11 +2,71 @@
 {% load static %}
 
 {% block 'head' %}
-
+    <link rel="stylesheet" href="{% static 'css/gerenciamento-oficial.css' %}">
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <div class="main">
+        <div class="main-navbar">
+            <div class="titulo-produtos">
+                <h3 class="titulo">Gerenciamento de produto:</h3>
+                <p class="subtitulo">Aqui você pode gerenciar os produtos do sistema.</p>
+            </div>
+        </div>
+    
 
-
+        <div id="add-produto" class="adicionar-produto" name="add-produto">
+            <form action="{% url 'addProduto' %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
+                {% csrf_token %}
+                <div class="produtoform">
+                    <h2 class="main-title">Adicionar produto</h2>
+                    <div class="row">
+                        <div class="col-md">
+                            <p class="label-text">Nome do produto</p>
+                            <input type="text" name="nome_produto" class="form-control" value="{{nome_produto}}">
+                        </div>
+                        <div class="col-md">
+                            <p class="label-text">Descrição</p>
+                            <input type="text" name="descricao" class="form-control" value="{{descricao}}">
+                        </div>
+                        <div class="col-md">
+                            <p class="label-text">Preço</p>
+                            <input type="text" name="preco" class="form-control" value="{{preco}}">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md">
+                            <p class="label-text">Categoria</p>
+                            <select name="categoria" class="form-control">
+                                {% for categoria in categorias %}
+                                    <option value="{{ categoria.0 }}">{{ categoria.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <p class="label-text">Imagem</p>
+                            <input type="file" name="imagem" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="add-ingredientes">
+                    <h3>Ingredientes da receita</h3>
+                    <span class="btn-add-ingredientes" onclick="addIngrediente()">+ Adicionar um ingrediente</span>
+                    <div class="ingredientes" id="form-ingrediente">
+                        
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="botao">
+                    <input type="submit" value="Enviar" class="btn-add-principal">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
 
 {% endblock %}

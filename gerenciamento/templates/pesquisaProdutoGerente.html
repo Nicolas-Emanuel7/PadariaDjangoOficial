@@ -2,11 +2,63 @@
 {% load static %}
 
 {% block 'head' %}
-
+<link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
+<link rel="stylesheet" href="{% static 'css/gerenciamento-oficial.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <!--main-->
+    <div class="main">
+        <!--Main navbar-->
+        <div class="main-navbar">
+            <ion-icon class="menu-toggle" name="menu-outline"></ion-icon>
+
+            <div class="search">
+                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisaProdutoGerente' %}">
+                    <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}">
+                    <button class="search-btn">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+        <!--Menu-->
+        <br>
+        <br>
+        <div class="main-menus">
+            <!--List of food-->
+            <div class="main-detail">
+                <h2 class="main-title">Resultados da Pesquisa</h2>
+                <div class="detail-wrapper">
+                    {% for produto in resultados %}
+                    <div class="detail-card produto-card {{ produto.categoria }}" >
+                        <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                            <img class="detail-img" src="{{ produto.imagem.url }}" alt="{{ produto.nome_produto }}">
+                        </a>
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>{{produto.nome_produto}}</h4>
+                                <p class="detail-sub">{{produto.descricao}}</p>
+                                <p class="price">R$ {{produto.preco|floatformat:2}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                                <button type="button" data-produto="{{produto.id_produto}}" class="btn botao-add-carrinho">Ver Detalhes</button>
+                            </a>
+                        </div>
+                    </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+</body>
 
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<!-- javascript-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 {% endblock %}

@@ -2,11 +2,143 @@
 {% load static %}
 
 {% block 'head' %}
-
+    <link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gerenciamento-oficial.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <!--main-->
+    <div class="main">
+        <!--Main navbar-->
+        <div class="main-navbar">
+            <ion-icon class="menu-toggle" name="menu-outline"></ion-icon>
 
+            <div class="search">
+                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisaProdutoGerente' %}">
+                    <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}">
+                    <button class="search-btn">Pesquisar</button>
+                </form>
+            </div>
 
+            <div class="add-produto" name="addProduto">
+                <a href="{% url 'addProduto' %}">
+                    <button class="add-btn">Adicionar produto</button>
+                </a>
+            </div>
+        </div>
+        <!--Main highlight-->
+        <div class="main-highlight">
+            <div class="main-header">
+                <h2 class="main-title">Recomendações</h2>
+            </div>
+            <!--highlight menu-->
+            <div class="highlight-wrapper">
+                {% for produto in produtos|slice:":4" %}
+                    <a class="highlight-card" href="{% url 'produtoGerente' produto.id_produto %}">
+                        <img class="highlight-img" src="{{ produto.imagem.url }}" alt="{{ produto.nome_produto }}">
+                        <div class="highlight-desc">
+                            <h4>{{ produto.nome_produto }}</h4>
+                            <p>R$ {{ produto.preco|floatformat:2 }}</p>
+                        </div>
+                    </a> 
+                {% endfor %}
+            </div>
+        </div>
+        <!--Menu-->
+        <div class="main-menus">
+            <!--Filter-->
+            <div class="main-filter">
+                <div>
+                    <h2 class="main-title">Menu<br>Categoria</h2>
+                </div>
+                <div class="filter-wrapper">
+                    <div class="filter-card category-filter" data-category="cardapio">
+                        <div class="filter-icon">
+                            <ion-icon name="restaurant-outline"></ion-icon>
+                        </div>
+                        <p>Cardápio</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="salgado">
+                        <div class="filter-icon">
+                            <ion-icon name="fast-food-outline"></ion-icon>
+                        </div>
+                        <p>Salgados</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="doce">
+                        <div class="filter-icon">
+                            <ion-icon name="ice-cream-outline"></ion-icon>
+                        </div>
+                        <p>Doces</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="bolo">
+                        <div class="filter-icon">
+                            <i class='bx bx-cake'></i>
+                        </div>
+                        <p>Bolos</p>
+                    </div>
+                    <div class="filter-card category-filter" data-category="bebida">
+                        <div class="filter-icon">
+                            <ion-icon name="cafe-outline"></ion-icon>
+                        </div>
+                        <p>Bebidas</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="divider">
+            <!--List of food-->
+            <div class="main-detail">
+                <h2 class="main-title">Faça seu pedido</h2>
+                <div class="detail-wrapper">
+                    {% for produto in produtos %}
+                    <div class="detail-card produto-card {{ produto.categoria }}">
+                        <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                            <img class="detail-img" src="{{ produto.imageURL }}" alt="{{ produto.nome_produto }}">
+                        </a>
+                        <div class="detail-desc">
+                            <div class="detail-name">
+                                <h4>{{produto.nome_produto}}</h4>
+                                <p class="detail-sub">{{produto.descricao}}</p>
+                                <p class="price">R$ {{produto.preco|floatformat:2}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                                <button type="button" data-produto="{{produto.id_produto}}" class="btn botao-add-carrinho">Ver Detalhes</button>
+                            </a>
+                        </div>
+                    </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const categoryFilters = document.querySelectorAll('.category-filter');
+
+    categoryFilters.forEach(filter => {
+        filter.addEventListener('click', () => {
+            const selectedCategory = filter.getAttribute('data-category');
+
+            const produtos = document.querySelectorAll('.produto-card');
+            produtos.forEach(produto => {
+                if (selectedCategory === 'cardapio' || produto.classList.contains(selectedCategory)) {
+                    produto.style.display = 'block';
+                } else {
+                    produto.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<!-- javascript-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 {% endblock %}

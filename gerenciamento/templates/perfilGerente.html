@@ -2,11 +2,64 @@
 {% load static %}
 
 {% block 'head' %}
-
+    <link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
+    <link rel="stylesheet" href="{% static 'css/perfil-oficial.css' %}">
+    
 {% endblock %}
 
 {% block 'dashboard' %}
 
+<body>
+    <div class="container-perfil">
+        <div id="att-perfil">
+            <form action="{% url 'perfil' %}" method="POST" id="form-perfil">
+                {% csrf_token %}
+                <div class="caixa-perfil">
+                    <div id="perfil">
+                        <h1 class="titulo_perfil">Atualizar Perfil</h1>
+                        <div class="row">
+                            <div class="col-md">
+                                <p>Nome:</p>
+                                <input type="text" class="form-control" placeholder="Nome" name="nome" value="{{nome}}" >
+                            </div>
+                            <div class="col-md">
+                                <p>Sobrenome:</p>
+                                <input type="text" class="form-control" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <p>Telefone:</p>
+                                <input type="text" class="form-control" placeholder="Telefone" name="telefone" value="{{telefone}}" >
+                            </div>
+                            <div class="col-md">
+                                <p>Endereço:</p>
+                                <input type="text" class="form-control" placeholder="Endereço" name="endereco" value="{{endereco}}" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <p>E-Mail:</p>
+                                <input type="email" class="form-control" placeholder="E-Mail" name="email" value="{{email}}" >
+                            </div>
+                            <div class="col-md">
+                                <p>Senha:</p>
+                                <input type="password" class="form-control" placeholder="Senha" name="senha" value="{{senha}}" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn-att-perfil" value="Atualizar">Atualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-
+    <br>
+    <br>
+    <div class="row">
+        <button class="btn-remover-principal" onclick="confirmarExclusao()">Excluir Perfil</button>      
+    </div>
+</body>
 {% endblock %}

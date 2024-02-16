@@ -2,11 +2,132 @@
 {% load static %}
 
 {% block 'head' %}
-
+    <link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gerenciamento-oficial.css' %}">
 {% endblock %}
 
 {% block 'dashboard' %}
+<body>
+    <br>
+    <div class="main-navbar">
+        <div class="titulo-funcionarios">
+            <h3 class="titulo">Funcionários cadastrados no sistema:</h3>
+            <p class="subtitulo">Aqui você pode visualizar todos os funcionários cadastrados no sistema.</p>
+        </div>
+        <div class="botoes">
+            <div class="add-funcionario" name="addfuncionario">
+                <button onclick="exibir_funcionario('1')" class="add-btn">Cadastrar Funcionário</button>
+            </div>
+            <div class="att-funcionario" name="attfuncionario">
+                <button onclick="exibir_funcionario('2')" class="add-btn">Atualizar Funcionário</button>
+            </div>
+        </div>
+    </div>
 
+    <div id="add-funcionario" class="adicionar-funcionario" name="add-funcionario" style="display: none;">
+        <form action="{% url 'addFuncionario' %}" method="POST">{% csrf_token %}
+            <div class="funcionarioform">
+                <h2 class="main-title">Cadastrar funcionário</h2>
+                <div class="row">
+                    <div class="col-md">
+                        <p class="label-text">Nome do funcionário</p>
+                        <input class="caixa-entrada" type="text" id="nome" name="nome_funcionario" placeholder="Nome do funcionário" value="{{nome_funcionario}}">
+                    </div>
+                    <div class="col-md">
+                        <p class="label-text">Telefone</p>
+                        <input class="caixa-entrada" type="text" id="telefone" name="telefone_funcionario" placeholder="Telefone do funcionário" value="{{telefone_funcionario}}">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md">
+                        <p class="label-text">Cargo</p>
+                        <input class="caixa-entrada" type="text" id="cargoAdd" name="cargo" placeholder="Cargo do funcionário" value="{{cargo}}">
+                    </div>
+                    <div class="col-md">
+                        <p class="label-text">Salário (apenas números)</p>
+                        <input class="caixa-entrada" type="text" id="salarioAdd" name="salario" placeholder="Salário do funcionário" value="{{salario}}">
+                    </div>
+                </div>
+                <br>
+                <input type="submit" value="Adicionar" class="btn-add-principal">
+            </div>
+        </form>
+    </div>
 
-
+    <div id="att-funcionario" class="adicionar-funcionario" name="att-funcionario" style="display: none;">
+        <div class="funcionarioform">
+            <h2 class="main-title">Atualizar funcionário</h2>
+            <p class="label-text">Funcionário: </p>
+            <select id="funcionario-select" onchange="dados_funcionario(this)" class="form-control">
+            {% for funcionario in funcionarios %}
+                <option value="{{ funcionario.id_funcionario }}">{{ funcionario.nome_funcionario }}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <form id="form-att-funcionario" action="{% url 'updateFuncionario' %}" method="POST">{% csrf_token %}
+                <div class="row">
+                    <div class="col-md">
+                        <p class="label-text">Nome do funcionário</p>
+                        <input class="caixa-entrada" type="text" id="nome_funcionario" name="nome_funcionario" placeholder="Nome do funcionário">
+                    </div>
+                    <div class="col-md">
+                        <p class="label-text">Telefone</p>
+                        <input class="caixa-entrada" type="text" id="telefone_funcionario" name="telefone_funcionario"  placeholder="Telefone do funcionário">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md">
+                        <p class="label-text">Cargo</p>
+                        <input class="caixa-entrada" type="text" id="cargo" name="cargo"  placeholder="Cargo do funcionário">
+                    </div>
+                    <div class="col-md">
+                        <p class="label-text">Salário (apenas números)</p>
+                        <input class="caixa-entrada" type="text" id="salario" name="salario" placeholder="Salário do funcionário">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <input type="hidden" id="id_funcionario" name="id_funcionario">
+                    <button type="submit" class="btn btn-success">Atualizar</button>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+        
+    <br><br>
+    <div class="funcionarios">
+        <div class="container-fluid distanciamento-cliente">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th class="id" scope="col">Identificador</th>
+                        <th class="nome" scope="col">Nome</th>
+                        <th class="telefone" scope="col">Telefone</th>
+                        <th class="cargo" scope="col">Cargo</th>
+                        <th class="salario" scope="col">Salário</th>
+                        <th class="acoes" scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for funcionario in funcionarios %}
+                        <tr>
+                            <th>{{ funcionario.id_funcionario }}</th>
+                            <td>{{ funcionario.nome_funcionario }}</td>
+                            <td>{{ funcionario.telefone_funcionario }}</td>
+                            <td>{{ funcionario.cargo }}</td>
+                            <td>R$ {{ funcionario.salario|floatformat:2 }}</td>
+                            <td>
+                                <a class="btn btn-danger" href="{% url 'excluir_funcionario' funcionario.id_funcionario %}">Excluir</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
 {% endblock %}

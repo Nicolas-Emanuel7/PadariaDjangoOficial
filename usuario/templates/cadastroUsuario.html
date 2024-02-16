@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block 'head' %}
-
+<link rel="stylesheet" href="{% static 'css/cadastro-oficial.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 {% endblock %}
 
 {% block 'dashboard' %}
@@ -17,7 +18,6 @@
                 <input type="text" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}" />
                 <input type="text" placeholder="CPF" name="cpf" value="{{cpf}}" />
                 <input type="text" placeholder="Telefone" name="telefone" value="{{telefone}}" />
-                <input type="text" placeholder="Endereço" name="endereco" value="{{endereco}}" />
                 <input type="email" placeholder="E-mail" name="email" value="{{email}}" />
                 <input type="password" placeholder="Senha" name="senha" value="{{senha}}" />
                 <button class="button" value="Cadastrar">Cadastrar</button> <!-- Botão para submeter o formulário de cadastro -->

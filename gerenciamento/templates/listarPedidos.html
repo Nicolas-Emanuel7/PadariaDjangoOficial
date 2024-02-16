@@ -2,11 +2,48 @@
 {% load static %}
 
 {% block 'head' %}
-
+    <link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gerenciamento-oficial.css' %}">
 {% endblock %}
 
 {% block 'dashboard' %}
-
+<body>
+    <br>
+    <br>
+    <h3 class="titulo">Pedidos cadastrados no sistema:</h2>
+    <p class="subtitulo">Aqui você pode visualizar todos os pedidos cadastrados no sistema.</p>
+    <p class="subtitulo">Clique no identificador do pedido para visualizar mais detalhes.</p>
+    <p class="subtitulo">Soma do valor dos pedidos do mês atual: R$ {{ soma_valor_pedidos_mes_atual }}</p>
+    <br>
+    <div class="container-fluid distanciamento">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th class="id" scope="col">Identificador</th>
+                    <th class="cliente" scope="col">Cliente</th>
+                    <th class="data" scope="col">Data</th>
+                    <th class="valor" scope="col">Valor</th>
+                    <th class="status" scope="col">Status</th>
+                    <th class="acoes" scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                    <tr>
+                        <th><a href="{% url 'notaPedido' pedido.id_pedido %}">{{pedido.id_pedido}}</a></th>
+                        <td>{{ pedido.cliente.first_name }} {{ pedido.cliente.last_name }}</td>
+                        <td>{{ pedido.data }}</td>
+                        <td>R$ {{ pedido.valor_final|floatformat:2 }}</td>
+                        <td>{% if pedido.completo %}Completo{% else %}Incompleto{% endif %}</td>
+                        <td>
+                            <a class="btn btn-danger" href="{% url 'excluir_pedido' pedido.id_pedido %}">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
 
 
 {% endblock %}
