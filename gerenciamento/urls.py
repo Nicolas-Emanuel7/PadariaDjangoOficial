@@ -37,6 +37,9 @@ urlpatterns = [
     path('dados_funcionario/', views.dados_funcionario, name='dados_funcionario'),
     path('dados_produto/', views.dados_produto, name='dados_produto'),
     path('dados_pedido/', views.dados_pedido, name='dados_pedido'),
+    path('dados_perfil/', views.dados_perfil, name='dados_perfil'),
+
+    path('excluir_perfil' , views.exclui_perfil, name='excluir_perfil'),
 ]
 
 if settings.DEBUG:

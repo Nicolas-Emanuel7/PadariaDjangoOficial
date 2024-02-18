@@ -11,11 +11,22 @@ from io import BytesIO
 from gerenciamento.models import Funcionario, Ingrediente, Pedido, PedidoProduto, Produto, ProdutoIngrediente, Avaliacao
 from usuario.models import Usuario
 
+#Verificador de permissão
+def verifica_permissao(func):
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.permissao:
+            return func(request, *args, **kwargs)
+        else:
+            return redirect('cadastro')
+    return wrapper
+
 #telas
+@verifica_permissao
 def gerente_principal(request):
     produtos_list = Produto.objects.all()
     return render(request, 'principalGerente.html', {'produtos': produtos_list})
 
+@verifica_permissao
 def gerente_lista_pedidos(request):
      # Obtém a data do primeiro dia do mês atual
     primeiro_dia_mes_atual = timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -28,6 +39,7 @@ def gerente_lista_pedidos(request):
     pedidos_list = Pedido.objects.order_by('-id_pedido')
     return render(request, 'listarPedidos.html', {'pedidos': pedidos_list , 'soma_valor_pedidos_mes_atual': soma_valor_pedidos_mes_atual})
 
+@verifica_permissao
 def gerente_lista_clientes(request):
     if request.method == "GET":
         clientes_list = Usuario.objects.order_by('-date_joined')
@@ -35,13 +47,28 @@ def gerente_lista_clientes(request):
     else:
         return render(request, 'clientes.html')
 
+@verifica_permissao
 def gerente_lista_funcionarios(request):
     funcionarios_list = Funcionario.objects.all()
     return render(request, 'funcionarios.html', {'funcionarios': funcionarios_list})
 
+@verifica_permissao
 def gerente_perfil(request):
+    if request.method == 'POST':
+        user = request.user
+        user.first_name = request.POST.get('nome')
+        user.last_name = request.POST.get('sobrenome')
+        user.telefone = request.POST.get('telefone')
+        user.endereco = request.POST.get('endereco')
+        user.email = request.POST.get('email')
+        user.password = (request.POST.get('senha'))
+        user.username = (request.POST.get('nome'))
+        user.permissao = True
+        user.save()
+        return redirect('perfilGerente.html')
     return render(request, 'perfilGerente.html')
 
+@verifica_permissao
 def gerente_produto(request, id_produto):
     categorias = Produto.CATEGORIA_CHOICES
     produto = get_object_or_404(Produto, id_produto=id_produto)
@@ -56,7 +83,8 @@ def gerente_produto(request, id_produto):
 
     
 #funções de adicionar
-    
+
+@verifica_permissao   
 def gerente_add_funcionario(request):
     funcionarios_list = Funcionario.objects.all()
     if request.method == "GET":
@@ -76,7 +104,8 @@ def gerente_add_funcionario(request):
             funcionario.save()
 
         return render(request, 'funcionarios.html', {'funcionarios': funcionarios_list})
-    
+
+@verifica_permissao    
 def gerente_add_produto(request):
     categorias = Produto.CATEGORIA_CHOICES
     if request.method == 'POST':
@@ -108,6 +137,7 @@ def gerente_add_produto(request):
         
 # FUNÇÕES DE BUSCA
 
+@verifica_permissao
 def gerente_pesquisar_produto(request):
     termo_pesquisa = request.GET.get('Pesquisar', '')
     resultados = Produto.objects.filter(nome_produto__icontains=termo_pesquisa)
@@ -115,6 +145,7 @@ def gerente_pesquisar_produto(request):
     return render(request, 'pesquisaProdutoGerente.html', contexto)
 
 #funções de atualizar
+@verifica_permissao
 def gerente_att_produto(request, id_produto):
     if request.method == 'POST':
         produtoAtt = Produto.objects.get(id_produto=id_produto)
@@ -140,6 +171,7 @@ def gerente_att_produto(request, id_produto):
     
     return redirect('gerente_produto', id_produto=id_produto)
 
+@verifica_permissao
 def gerente_att_funcionario(request):
     if request.method == 'POST':
         id_funcionario = request.POST.get('id_funcionario')
@@ -156,25 +188,29 @@ def gerente_att_funcionario(request):
     return redirect('gerente_lista_funcionario')
     
 #funções de deletar
-    
+
+@verifica_permissao  
 def gerente_excluir_produto(request, id_produto):
     produto = Produto.objects.get(id_produto=id_produto)
     print(produto)
     produto.delete()
     return redirect('gerente_principal')
 
+@verifica_permissao
 def gerente_excluir_pedido(request, id_pedido):
     pedido = Pedido.objects.get(id_pedido=id_pedido)
     print(pedido)
     pedido.delete()
     return redirect('gerente_lista_pedidos')
 
+@verifica_permissao
 def gerente_excluir_funcionario(request, id_funcionario):
     funcionario = Funcionario.objects.get(id_funcionario=id_funcionario)
     print(funcionario)
     funcionario.delete()
     return redirect('gerente_lista_funcionarios')
 
+@verifica_permissao
 def gerente_excluir_ingrediente(request, id_ingrediente, id_produto):
     produto = Produto.objects.get(id_produto=id_produto)
     ingrediente = Ingrediente.objects.get(id_ingrediente=id_ingrediente)
@@ -184,6 +220,7 @@ def gerente_excluir_ingrediente(request, id_ingrediente, id_produto):
 
 #funções de dados
 
+@verifica_permissao
 def dados_pedido(request):
     id_pedido = request.POST.get('id_pedido')
     pedido = Pedido.objects.filter(id_pedido=id_pedido)
@@ -192,6 +229,7 @@ def dados_pedido(request):
     data = {'pedido': pedido_json, 'pedido_id': pedido_id}
     return JsonResponse(data)
 
+@verifica_permissao
 def dados_produto(request):
     id_produto = request.POST.get('id_produto')
     produto = Produto.objects.filter(id_produto=id_produto).first()
@@ -216,6 +254,7 @@ def dados_produto(request):
         # Se o produto não for encontrado, retorna uma resposta de erro
         return JsonResponse({'error': 'Produto não encontrado'}, status=404)
 
+@verifica_permissao
 def dados_funcionario(request):
     if request.method == "POST":
         id_funcionario = request.POST.get('id_funcionario')
@@ -233,6 +272,29 @@ def dados_funcionario(request):
             return JsonResponse(data)
         else:
             return JsonResponse({'error': 'Funcionário não encontrado'}, status=404)
+
+#Não usa a verificação, pois é usada por usuários e gerentes       
+def dados_perfil(request):
+    if request.method == "POST":
+        user = request.user
+        data = {
+            'nome': user.first_name,
+            'sobrenome': user.last_name,
+            'telefone': user.telefone,
+            'endereco': user.endereco,
+            'email': user.email,
+            'senha': user.password,
+        }
+        print(data)
+        return JsonResponse(data)
+        
+#Função de exclusão de perfil
+def exclui_perfil(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        print('Usuário excluído com sucesso!')
+        return render(request, 'cadastro.html')
 
 #detalhes de pedido
 

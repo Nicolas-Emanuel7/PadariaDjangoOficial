@@ -54,7 +54,10 @@ def usuario_login(request):
                 # Usuário encontrado, autenticação bem-sucedida
                 print('Usuário autenticado com sucesso!')
                 # Faça qualquer ação adicional necessária
-                return redirect('usuario_principal')
+                if usuario.permissao == True:
+                    return redirect('gerente_principal')
+                else:
+                    return redirect('usuario_principal')
         else:
             # Loop concluído sem encontrar um usuário correspondente
             print('Falha na autenticação!')
@@ -147,8 +150,8 @@ def usuario_pesquisar_produto(request):
 def usuario_perfil(request):
     if request.method == 'POST':
         user = request.user
-        user.nome = request.POST.get('nome')
-        user.sobrenome = request.POST.get('sobrenome')
+        user.first_name = request.POST.get('nome')
+        user.last_name = request.POST.get('sobrenome')
         user.telefone = request.POST.get('telefone')
         user.endereco = request.POST.get('endereco')
         user.email = request.POST.get('email')
