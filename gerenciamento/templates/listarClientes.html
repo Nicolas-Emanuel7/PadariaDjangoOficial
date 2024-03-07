@@ -27,7 +27,7 @@
             <tbody>
                 {% for cliente in clientes %}
                     <tr>
-                        <th>{{ cliente.cpf }}</th>
+                        <td class="cpf cpf-format">{{ cliente.cpf }}</td>
                         <td>{{ cliente.first_name }} {{cliente.last_name}}</td>
                         <td>{{ cliente.email }}</td>
                         <td>{{ cliente.telefone }}</td>
@@ -38,5 +38,28 @@
         </table>
     </div>
 </body>
+<script>
+    function formatarCPF(cpf) {
+        // Remove caracteres não numéricos do CPF
+        var cpfFormatado = cpf.replace(/\D/g, '');
+
+        // Adiciona pontos e traço ao CPF
+        cpfFormatado = cpfFormatado.replace(/(\d{3})(\d)/, '$1.$2');
+        cpfFormatado = cpfFormatado.replace(/(\d{3})(\d)/, '$1.$2');
+        cpfFormatado = cpfFormatado.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+        // Atualiza o valor do campo de CPF com o CPF formatado
+        cpf.value = cpfFormatado;
+    }
+
+    // Função para chamar a formatação ao carregar a página
+    window.onload = function () {
+        var cpfs = document.querySelectorAll('.cpf-format');
+        cpfs.forEach(function (cpf) {
+            formatarCPF(cpf);
+        });
+    };
+</script>
+<script src="{% static 'js/script.js' %}"></script>
 
 {% endblock %}

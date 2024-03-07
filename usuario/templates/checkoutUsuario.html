@@ -61,6 +61,52 @@
         </div>
     </div>
 </body>
+<script type="text/javascript">
+    var total = '{{pedido.get_carrinho_total}}'
 
+    var form = document.getElementById('form')
 
+    //csrftoken = document.getElementById('form')
+    //csrftoken = csrftoken.getElementsByTagName('input')[0].value
+    //console.log('csrftoken:', csrftoken)
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        console.log('Form Submitted...')
+        document.getElementById('form-button').classList.add('hidden')
+        document.getElementById('payment-info').classList.remove('hidden')
+    })
+
+    document.getElementById('make-payment').addEventListener('click', function(e){
+        submitFormData()
+    })
+
+    function submitFormData(){
+        console.log('Botão de pagamento clicado.')
+        var userFormData = {
+            'endereco': form.endereco.value,
+            'bairro': form.bairro.value,
+            'cidade': form.cidade.value,
+            'estado': form.estado.value,
+            'total': total,
+        }
+
+        var url = "/usuarios/processar_pedido/"
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({'form': userFormData})
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Sucesso:', data)
+            alert('Pedido realizado com sucesso!')
+            window.location.href = "{% url 'principal' %}"
+        })
+    }
+</script>
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
