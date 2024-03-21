@@ -17,14 +17,14 @@
             <ion-icon class="menu-toggle" name="menu-outline"></ion-icon> <!-- Ícone de alternância de menu -->
 
             <div class="search"> <!-- Barra de pesquisa -->
-                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisar_produto' %}"> <!-- Formulário de pesquisa de produtos -->
+                <form id="pesquisa-produto" method="GET" action="{% url 'usuario_pesquisa_produto' %}"> <!-- Formulário de pesquisa de produtos -->
                     <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}">
                     <button class="search-btn">Pesquisar</button>
                 </form>
             </div>
 
             <div class="profile"><!-- Perfil do usuário e carrinho de compras -->
-                <a class="cart" href="{% url 'carrinho' %}"><ion-icon name="cart-outline"></ion-icon></a>
+                <a class="cart" href="{% url 'usuario_carrinho' %}"><ion-icon name="cart-outline"></ion-icon></a>
                 <p id="cart-total">{{carrinho_itens|floatformat:0}}</p>
             </div>
             
@@ -63,7 +63,7 @@
         <br>
 
         <div id="comentarios"> <!-- Seção de comentários e avaliações -->
-            <form id="avaliacao-produto" method="POST" action="{% url 'produto' produto.id_produto %}"> {% csrf_token %} <!-- Formulário para enviar uma avaliação -->
+            <form id="avaliacao-produto" method="POST" action="{% url 'usuario_produto' produto.id_produto %}"> {% csrf_token %} <!-- Formulário para enviar uma avaliação -->
                 <input type="text" name="comentario" value="{{comentario}}">
                 <input type="number" name="nota" min="1" max="5" step="0.1" value="{{nota}}">
                 <button type="submit">Enviar</button>

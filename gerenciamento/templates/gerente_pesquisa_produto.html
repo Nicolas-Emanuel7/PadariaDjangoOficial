@@ -16,7 +16,7 @@
             <ion-icon class="menu-toggle" name="menu-outline"></ion-icon>
 
             <div class="search">
-                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisaProdutoGerente' %}">
+                <form id="pesquisa-produto" method="GET" action="{% url 'gerente_pesquisa_produto' %}">
                     <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}">
                     <button class="search-btn">Pesquisar</button>
                 </form>
@@ -32,7 +32,7 @@
                 <div class="detail-wrapper">
                     {% for produto in resultados %}
                     <div class="detail-card produto-card {{ produto.categoria }}" >
-                        <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                        <a class="detail-icon" href="{% url 'gerente_produto' produto.id_produto %}">
                             <img class="detail-img" src="{{ produto.imagem.url }}" alt="{{ produto.nome_produto }}">
                         </a>
                         <div class="detail-desc">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                            <a class="detail-icon" href="{% url 'gerente_produto' produto.id_produto %}">
                                 <button type="button" data-produto="{{produto.id_produto}}" class="btn botao-add-carrinho">Ver Detalhes</button>
                             </a>
                         </div>

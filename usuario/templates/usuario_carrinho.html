@@ -11,7 +11,7 @@
         <div class="col-lg-12">
             <div class="box-element">
                 <!-- Botão para continuar comprando -->
-                <a class="btn btn-outline-dark" href="{% url 'principal' %}">&#x2190; Continuar Comprando</a>
+                <a class="btn btn-outline-dark" href="{% url 'usuario_principal' %}">&#x2190; Continuar Comprando</a>
                 <br>
                 <br>
                 <table class="table"> <!-- Tabela exibindo informações resumidas do carrinho -->
@@ -19,7 +19,7 @@
                         <th><h5>Itens: <strong>{{pedido.get_carrinho_itens}}</strong></h5></th>
                         <th><h5>Total: <strong>R$ {{pedido.get_carrinho_total|floatformat:2}}</strong></h5></th>
                         <th>
-                            <a style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Finalizar Compra</a>
+                            <a style="float:right; margin:5px;" class="btn btn-success" href="{% url 'usuario_checkout' %}">Finalizar Compra</a>
                         </th>
                     </tr>
                 </table>

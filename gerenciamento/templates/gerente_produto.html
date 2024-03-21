@@ -16,7 +16,7 @@
             <ion-icon class="menu-toggle" name="menu-outline"></ion-icon>
 
             <div class="search">
-                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisar_produto' %}">
+                <form id="pesquisa-produto" method="GET" action="{% url 'gerente_pesquisa_produto' %}">
                     <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}">
                     <button class="search-btn">Pesquisar</button>
                 </form>
@@ -55,7 +55,7 @@
                         <!-- Modal de confirmação -->
                         <div id="modal-confirmacao" style="display: none;">
                             <p>Deseja realmente excluir o produto?</p>
-                            <a class="btn btn-danger" href="{% url 'excluir_produto' produto.id_produto %}">Excluir</a>
+                            <a class="btn btn-danger" href="{% url 'gerente_excluir_produto' produto.id_produto %}">Excluir</a>
                             <button onclick="fecharModal()">Cancelar</button>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
         </div>
 
         <div id="att-produto" class="adicionar-produto" name="att-produto" style="display: none;">
-            <form action="{% url 'attProduto' produto.id_produto %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
+            <form action="{% url 'gerente_att_produto' produto.id_produto %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
                 {% csrf_token %}
                 <div class="produtoform">
                     <h2 class="main-title">Atualizar produto</h2>

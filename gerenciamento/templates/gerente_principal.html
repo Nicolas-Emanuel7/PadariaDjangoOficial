@@ -16,14 +16,14 @@
             <ion-icon class="menu-toggle" name="menu-outline"></ion-icon>
 
             <div class="search">
-                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisaProdutoGerente' %}">
+                <form id="pesquisa-produto" method="GET" action="{% url 'gerente_pesquisa_produto' %}">
                     <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}">
                     <button class="search-btn">Pesquisar</button>
                 </form>
             </div>
 
             <div class="add-produto" name="addProduto">
-                <a href="{% url 'addProduto' %}">
+                <a href="{% url 'gerente_add_produto' %}">
                     <button class="add-btn">Adicionar produto</button>
                 </a>
             </div>
@@ -36,7 +36,7 @@
             <!--highlight menu-->
             <div class="highlight-wrapper">
                 {% for produto in produtos|slice:":4" %}
-                    <a class="highlight-card" href="{% url 'produtoGerente' produto.id_produto %}">
+                    <a class="highlight-card" href="{% url 'gerente_produto' produto.id_produto %}">
                         <img class="highlight-img" src="{{ produto.imagem.url }}" alt="{{ produto.nome_produto }}">
                         <div class="highlight-desc">
                             <h4>{{ produto.nome_produto }}</h4>
@@ -93,7 +93,7 @@
                 <div class="detail-wrapper">
                     {% for produto in produtos %}
                     <div class="detail-card produto-card {{ produto.categoria }}">
-                        <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                        <a class="detail-icon" href="{% url 'gerente_produto' produto.id_produto %}">
                             <img class="detail-img" src="{{ produto.imageURL }}" alt="{{ produto.nome_produto }}">
                         </a>
                         <div class="detail-desc">
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <a class="detail-icon" href="{% url 'produtoGerente' produto.id_produto %}">
+                            <a class="detail-icon" href="{% url 'gerente_produto' produto.id_produto %}">
                                 <button type="button" data-produto="{{produto.id_produto}}" class="btn botao-add-carrinho">Ver Detalhes</button>
                             </a>
                         </div>

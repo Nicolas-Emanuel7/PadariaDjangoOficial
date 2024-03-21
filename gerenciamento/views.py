@@ -17,14 +17,14 @@ def verifica_permissao(func):
         if request.user.is_authenticated and request.user.permissao:
             return func(request, *args, **kwargs)
         else:
-            return redirect('cadastro')
+            return redirect('usuario_cadastro')
     return wrapper
 
 #telas
 @verifica_permissao
 def gerente_principal(request):
     produtos_list = Produto.objects.all()
-    return render(request, 'principalGerente.html', {'produtos': produtos_list})
+    return render(request, 'gerente_principal.html', {'produtos': produtos_list})
 
 @verifica_permissao
 def gerente_lista_pedidos(request):
@@ -37,20 +37,20 @@ def gerente_lista_pedidos(request):
     # Calcula a soma do valor de todos os pedidos do mês atual
     soma_valor_pedidos_mes_atual = sum(pedido.valor_final for pedido in pedidos_mes_atual)
     pedidos_list = Pedido.objects.order_by('-id_pedido')
-    return render(request, 'listarPedidos.html', {'pedidos': pedidos_list , 'soma_valor_pedidos_mes_atual': soma_valor_pedidos_mes_atual})
+    return render(request, 'gerente_pedidos.html', {'pedidos': pedidos_list , 'soma_valor_pedidos_mes_atual': soma_valor_pedidos_mes_atual})
 
 @verifica_permissao
 def gerente_lista_clientes(request):
     if request.method == "GET":
         clientes_list = Usuario.objects.order_by('-date_joined')
-        return render(request, 'clientes.html', {'clientes': clientes_list})
+        return render(request, 'gerente_clientes.html', {'clientes': clientes_list})
     else:
-        return render(request, 'clientes.html')
+        return render(request, 'gerente_clientes.html')
 
 @verifica_permissao
 def gerente_lista_funcionarios(request):
     funcionarios_list = Funcionario.objects.all()
-    return render(request, 'funcionarios.html', {'funcionarios': funcionarios_list})
+    return render(request, 'gerente_funcionarios.html', {'funcionarios': funcionarios_list})
 
 @verifica_permissao
 def gerente_perfil(request):
@@ -65,8 +65,8 @@ def gerente_perfil(request):
         user.username = (request.POST.get('nome'))
         user.permissao = True
         user.save()
-        return redirect('perfilGerente.html')
-    return render(request, 'perfilGerente.html')
+        return redirect('gerente_perfil.html')
+    return render(request, 'gerente_perfil.html')
 
 @verifica_permissao
 def gerente_produto(request, id_produto):
@@ -78,7 +78,7 @@ def gerente_produto(request, id_produto):
     avaliacoes = Avaliacao.objects.filter(produto=produto) 
 
     contexto = {'produto': produto,  'avaliacoes': avaliacoes, 'media_avaliacoes': media_avaliacoes, 'ingredientes_produto': ingredientes_produto, 'categorias':categorias}
-    return render(request, 'produtoGerente.html', contexto)
+    return render(request, 'gerente_produto.html', contexto)
 
 
     
@@ -88,7 +88,7 @@ def gerente_produto(request, id_produto):
 def gerente_add_funcionario(request):
     funcionarios_list = Funcionario.objects.all()
     if request.method == "GET":
-        return render(request, 'funcionarios.html', {'funcionarios': funcionarios_list})
+        return render(request, 'gerente_funcionarios.html', {'funcionarios': funcionarios_list})
     elif request.method == "POST":
         nome_funcionario = request.POST.get('nome_funcionario')
         telefone_funcionario = request.POST.get('telefone_funcionario')
@@ -103,7 +103,7 @@ def gerente_add_funcionario(request):
             funcionario = Funcionario.objects.create(nome_funcionario=nome_funcionario, telefone_funcionario=telefone_funcionario, cargo=cargo, salario=salario)
             funcionario.save()
 
-        return render(request, 'funcionarios.html', {'funcionarios': funcionarios_list})
+        return render(request, 'gerente_funcionarios.html', {'funcionarios': funcionarios_list})
 
 @verifica_permissao    
 def gerente_add_produto(request):
@@ -132,7 +132,7 @@ def gerente_add_produto(request):
         return redirect('gerente_principal')
 
     # Se o método da requisição não for POST, renderizar o formulário vazio
-    return render(request, 'adicionarProduto.html', {'categorias': categorias})
+    return render(request, 'gerente_add_produto.html', {'categorias': categorias})
         
         
 # FUNÇÕES DE BUSCA
@@ -142,7 +142,7 @@ def gerente_pesquisar_produto(request):
     termo_pesquisa = request.GET.get('Pesquisar', '')
     resultados = Produto.objects.filter(nome_produto__icontains=termo_pesquisa)
     contexto = {'resultados': resultados, 'termo_pesquisa': termo_pesquisa}
-    return render(request, 'pesquisaProdutoGerente.html', contexto)
+    return render(request, 'gerente_pesquisa_produto.html', contexto)
 
 #funções de atualizar
 @verifica_permissao
@@ -294,7 +294,7 @@ def exclui_perfil(request):
         user = request.user
         user.delete()
         print('Usuário excluído com sucesso!')
-        return render(request, 'cadastro.html')
+        return render(request, 'usuario_cadastro.html')
 
 #detalhes de pedido
 

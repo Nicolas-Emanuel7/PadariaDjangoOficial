@@ -17,7 +17,7 @@
     
 
         <div id="add-produto" class="adicionar-produto" name="add-produto">
-            <form action="{% url 'addProduto' %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
+            <form action="{% url 'gerente_add_produto' %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
                 {% csrf_token %}
                 <div class="produtoform">
                     <h2 class="main-title">Adicionar produto</h2>

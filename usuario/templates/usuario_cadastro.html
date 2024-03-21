@@ -10,7 +10,7 @@
 <body> <!-- Formulário de Cadastro -->
       <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="{% url 'cadastro' %}" method="POST">  <!-- O formulário envia dados para a URL 'cadastro' quando submetido -->
+            <form action="{% url 'usuario_cadastro' %}" method="POST">  <!-- O formulário envia dados para a URL 'cadastro' quando submetido -->
                 {% csrf_token %}
                 <h1>Criar Conta</h1>
                 <span>Insira seus dados para se registrar</span>  <!-- Campos de entrada para nome, sobrenome, CPF, telefone, endereço, e-mail e senha -->
@@ -24,7 +24,7 @@
             </form>
         </div> <!-- Formulário de Login -->
         <div class="form-container sign-in">
-            <form action="{% url 'login' %}" method="POST"> <!-- O formulário envia dados para a URL 'login' quando submetido -->
+            <form action="{% url 'usuario_login' %}" method="POST"> <!-- O formulário envia dados para a URL 'login' quando submetido -->
                 {% csrf_token %}
                 <h1>Fazer Login</h1>
                 <span>Faça Login no sistema</span>  <!-- Campos de entrada para e-mail e senha -->

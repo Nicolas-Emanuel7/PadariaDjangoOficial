@@ -1,18 +1,16 @@
-{% extends "gerente.html" %}
+{% extends "cliente.html" %}
 {% load static %}
 
 {% block 'head' %}
-    <link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
-    <link rel="stylesheet" href="{% static 'css/perfil-oficial.css' %}">
-    
+<link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
+<link rel="stylesheet" href="{% static 'css/perfil-oficial.css' %}">
 {% endblock %}
 
 {% block 'dashboard' %}
-
 <body>
     <div class="container-perfil">
-        <div id="att-perfil">
-            <form action="{% url 'perfil' %}" method="POST" id="form-perfil">
+        <div id="att-perfil"> <!-- Formulário para atualização de perfil -->
+            <form action="{% url 'usuario_perfil' %}" method="POST" id="form-perfil">
                 {% csrf_token %}
                 <div class="caixa-perfil">
                     <div id="perfil">
@@ -47,7 +45,7 @@
                                 <input type="password" class="form-control" placeholder="Senha" name="senha" value="{{senha}}" >
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row"><!-- Botão para atualizar o perfil -->
                             <button class="btn-att-perfil" value="Atualizar">Atualizar</button>
                         </div>
                     </div>
@@ -56,9 +54,41 @@
         </div>
     </div>
 
-    <br>
-    <br>
-    <div class="row">
+    <div class="container-pedidos"> <!-- Container para a seção de pedidos anteriores -->
+        <br>
+        <br>
+        <div id="pedidos-anteriores" class="pedidos-anteriores">
+            <div class="caixa-pedidos">
+                <div id="pedidos" class="pedidos-anteriores">
+                    <br>
+                    <h1  id="pedidos-anteriores-perfil">Pedidos Anteriores</h1>
+                    <div class="container-fluid distanciamento"> <!-- Container para a tabela de pedidos anteriores -->
+                        <table class="table table-dark"> <!-- Tabela para exibir os detalhes dos pedidos anteriores -->
+                            <thead>
+                                <tr><!-- Cabeçalhos da tabela -->
+                                    <th scope="col">Pedido</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody> <!-- Loop sobre os pedidos anteriores -->
+                                {% for pedido in pedidos|dictsortreversed:"id_pedido" %}
+                                    <tr>
+                                        <th><a href="{% url 'nota_pedido' pedido.id_pedido %}">{{ pedido.id_pedido }}</a></th>
+                                        <td>{{ pedido.data }}</td>
+                                        <td>R$ {{ pedido.valor_final|floatformat:2 }}</td>
+                                        <td>{% if pedido.completo %}Completo{% else %}Incompleto{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row"> <!-- Botão para excluir o perfil -->
         <button class="btn-remover-principal" onclick="confirmarExclusao()">Excluir Perfil</button>      
     </div>
 </body>

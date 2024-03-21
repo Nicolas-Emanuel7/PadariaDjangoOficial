@@ -30,13 +30,13 @@
             <tbody>
                 {% for pedido in pedidos %}
                     <tr>
-                        <th><a href="{% url 'notaPedido' pedido.id_pedido %}">{{pedido.id_pedido}}</a></th>
+                        <th><a href="{% url 'nota_pedido' pedido.id_pedido %}">{{pedido.id_pedido}}</a></th>
                         <td>{{ pedido.cliente.first_name }} {{ pedido.cliente.last_name }}</td>
                         <td>{{ pedido.data }}</td>
                         <td>R$ {{ pedido.valor_final|floatformat:2 }}</td>
                         <td>{% if pedido.completo %}Completo{% else %}Incompleto{% endif %}</td>
                         <td>
-                            <a class="btn btn-danger" href="{% url 'excluir_pedido' pedido.id_pedido %}">Excluir</a>
+                            <a class="btn btn-danger" href="{% url 'gerente_excluir_pedido' pedido.id_pedido %}">Excluir</a>
                         </td>
                     </tr>
                 {% endfor %}

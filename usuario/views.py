@@ -129,7 +129,7 @@ def usuario_produto(request, id_produto):
     return render(request, 'usuario_produto.html', contexto)
 
 @login_required(login_url='/usuario/cadastro/')
-def usuario_pesquisar_produto(request):
+def usuario_pesquisa_produto(request):
     if request.user.is_authenticated:
         pedido, criado = Pedido.objects.get_or_create(cliente=request.user, data=datetime.datetime.now() , completo=False)
         itens = pedido.pedidoproduto_set.all()
@@ -141,7 +141,7 @@ def usuario_pesquisar_produto(request):
     termo_pesquisa = request.GET.get('Pesquisar', '')
     resultados = Produto.objects.filter(nome_produto__icontains=termo_pesquisa)
     contexto = {'pedido':pedido , 'itens': itens, 'carrinho_itens': carrinho_itens, 'resultados': resultados, 'termo_pesquisa': termo_pesquisa}
-    return render(request, 'usuario_pesquisar_produto.html', contexto)
+    return render(request, 'usuario_pesquisa_produto.html', contexto)
         
 
 # FUNÇÕES DO PERFIL

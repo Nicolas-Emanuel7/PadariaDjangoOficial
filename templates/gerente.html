@@ -43,42 +43,42 @@
         </div>
         <ul class="nav-list">
           <li>
-            <a href="{% url 'principalGerente' %}">
+            <a href="{% url 'gerente_principal' %}">
               <i class='bx bx-grid-alt'></i>
               <span class="links_name">Página inicial</span>
             </a>
             <span class="tooltip">Página inicial</span>
           </li>
           <li>
-          <a href="{% url 'clientes' %}">
+          <a href="{% url 'gerente_lista_clientes' %}">
             <i class='bx bx-user' ></i>
             <span class="links_name">Clientes</span>
           </a>
           <span class="tooltip">Clientes</span>
         </li>
         <li>
-          <a href="{% url 'listaPedidos' %}">
+          <a href="{% url 'lgerente_lista_pedidos' %}">
             <i class='bx bx-cart'></i>
             <span class="links_name">Pedidos</span>
           </a>
           <span class="tooltip">Pedidos</span>
         </li>
         <li>
-          <a href="{% url 'funcionarios' %}">
+          <a href="{% url 'gerente_lista_funcionarios' %}">
             <i class='bx bx-hard-hat'></i>
             <span class="links_name">Funcionários</span>
           </a>
           <span class="tooltip">Funcionários</span>
         </li>
         <li>
-          <a href="{% url 'perfilGerente' %}">
+          <a href="{% url 'gerente_perfil' %}">
             <i class='bx bx-cog' ></i>
             <span class="links_name">Configurações</span>
           </a>
           <span class="tooltip">Configurações</span>
         </li>
         <li>
-          <a href="{% url 'logout' %}" id="logout-link">
+          <a href="{% url 'usuario_logout' %}" id="logout-link">
               <i class='bx bx-log-out' ></i>
               <span class="links_name">Sair</span>
           </a>
