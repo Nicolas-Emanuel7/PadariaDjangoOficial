@@ -91,7 +91,7 @@
             'total': total,
         }
 
-        var url = "/usuarios/processar_pedido/"
+        var url = "/usuario/usuario_processar_pedido/"
         fetch(url, {
             method: 'POST',
             headers: {
@@ -104,7 +104,7 @@
         .then((data) => {
             console.log('Sucesso:', data)
             alert('Pedido realizado com sucesso!')
-            window.location.href = "{% url 'principal' %}"
+            window.location.href = "{% url 'usuario_principal' %}"
         })
     }
 </script>

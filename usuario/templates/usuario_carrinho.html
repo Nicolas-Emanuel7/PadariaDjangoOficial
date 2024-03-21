@@ -42,8 +42,8 @@
                     <div style="flex:1">
                         <p class="quantity">{{item.quantidade_comprada}}</p>
                         <div class="quantity"> <!-- Botões de aumento e diminuição de quantidade -->
-                            <img data-produto={{item.produto.id_produto}} data-action="add" class="chg-quantity update-cart" src="{% static 'usuarios/img/mais.png' %}">
-                            <img data-produto={{item.produto.id_produto}} data-action="remove" class="chg-quantity update-cart" src="{% static 'usuarios/img/menos.png' %}">
+                            <img data-produto={{item.produto.id_produto}} data-action="add" class="chg-quantity update-cart" src="{% static 'img/mais.png' %}">
+                            <img data-produto={{item.produto.id_produto}} data-action="remove" class="chg-quantity update-cart" src="{% static 'img/menos.png' %}">
                         </div>
                     </div> <!-- Total para o item -->
                     <div style="flex:1">R$ {{item.get_total|floatformat:2}} R$</div>

@@ -22,7 +22,7 @@ urlpatterns = [
     # FUNCIONÁRIOS #
     path('gerente_lista_funcionarios/', views.gerente_lista_funcionarios, name='gerente_lista_funcionarios'),
     path('gerente_add_funcionario/', views.gerente_add_funcionario, name='gerente_add_funcionario'),
-    path('gerente_att_funcionario/<int:id_funcionario>', views.gerente_att_funcionario, name='gerente_att_funcionario'),
+    path('gerente_att_funcionario/', views.gerente_att_funcionario, name='gerente_att_funcionario'),
     path('gerente_excluir_funcionario/<int:funcionario_id>/', views.gerente_excluir_funcionario, name='gerente_excluir_funcionario'),
 
     # PRODUTOS #

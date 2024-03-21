@@ -15,7 +15,7 @@
             <ion-icon class="menu-toggle" name="menu-outline"></ion-icon> <!-- Ícone de alternância de menu -->
 
             <div class="search"><!-- Barra de pesquisa -->
-                <form id="pesquisa-produto" method="GET" action="{% url 'pesquisar_produto' %}">
+                <form id="pesquisa-produto" method="GET" action="{% url 'usuario_pesquisa_produto' %}">
                     <input type="text" placeholder="Pesquisar" name="Pesquisar" value="{{termo_pesquisa}}"> <!-- Campo de entrada para pesquisa -->
                     <button class="search-btn">Pesquisar</button><!-- Botão de pesquisa -->
                 </form>

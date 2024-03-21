@@ -41,6 +41,7 @@ def usuario_cadastro(request):
     else:
         return render(request, 'usuario_cadastro.html')
 
+@csrf_exempt
 def usuario_login(request):
     if request.method == 'POST':
         usuarios_list = Usuario.objects.all()
@@ -64,7 +65,7 @@ def usuario_login(request):
 
     return render(request, 'usuario_cadastro.html')
 
-@login_required(login_url='/usuario/cadastro/')
+@login_required(login_url='/usuario/usuario_cadastro/')
 def usuario_logout(request):
     # Exclui o pedido atual do usuário, se existir e não estiver completo
     if request.user.is_authenticated:
@@ -76,11 +77,11 @@ def usuario_logout(request):
     logout_django(request)
     
     # Redireciona para a página de login
-    return redirect('/usuarios/cadastro/')
+    return redirect('usuario_cadastro')
 
 # FUNÇÕES DA TELA PRINCIPAL
 
-@login_required(login_url='/usuario/cadastro/')
+@login_required(login_url='/usuario/usuario_cadastro/')
 def usuario_principal(request):
     produtos_list = Produto.objects.all()
 
@@ -116,7 +117,7 @@ def usuario_produto(request, id_produto):
             nota = request.POST.get('nota')
             avaliacao = Avaliacao.objects.create(usuario=request.user, produto=produto, comentario=comentario, nota=nota)
             avaliacao.save()
-            return redirect(f'/usuario/produto/{id_produto}/')
+            return redirect(f'/usuario/usuario_produto/{id_produto}/')
         
         else:
             avaliacoes = Avaliacao.objects.filter(produto=produto)
@@ -128,7 +129,7 @@ def usuario_produto(request, id_produto):
     contexto = {'produto': produto, 'pedido': pedido, 'itens': itens, 'carrinho_itens': carrinho_itens, 'avaliacoes': avaliacoes, 'media_avaliacoes': media_avaliacoes, 'ingredientes_produto': ingredientes_produto}
     return render(request, 'usuario_produto.html', contexto)
 
-@login_required(login_url='/usuario/cadastro/')
+@login_required(login_url='/usuario/usuario_cadastro/')
 def usuario_pesquisa_produto(request):
     if request.user.is_authenticated:
         pedido, criado = Pedido.objects.get_or_create(cliente=request.user, data=datetime.datetime.now() , completo=False)
@@ -146,7 +147,7 @@ def usuario_pesquisa_produto(request):
 
 # FUNÇÕES DO PERFIL
 
-@login_required(login_url='/usuario/cadastro/')
+@login_required(login_url='/usuario/usuario_cadastro/')
 def usuario_perfil(request):
     if request.method == 'POST':
         user = request.user
@@ -173,7 +174,7 @@ def usuario_excluir_perfil(request):
 
 # FUNÇÕES DO PEDIDO
 
-@login_required(login_url='/usuario/cadastro/')
+@login_required(login_url='/usuario/usuario_cadastro/')
 def usuario_carrinho(request):
     
     if request.user.is_authenticated:
@@ -187,7 +188,7 @@ def usuario_carrinho(request):
     contexto = {'pedido':pedido , 'itens': itens, 'carrinho_itens': carrinho_itens}
     return render(request, 'usuario_carrinho.html', contexto)
 
-@login_required(login_url='/usuario/cadastro/')
+@login_required(login_url='/usuario/usuario_cadastro/')
 def usuario_checkout(request):
     
     if request.user.is_authenticated:
