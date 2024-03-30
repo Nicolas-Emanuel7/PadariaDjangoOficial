@@ -1,0 +1,89 @@
+:root{
+    --main-color: #c5b1a7;
+    --dark-color: #69452F;
+    --light-color: #E7E7E7;
+    --contrast-color: #faab66;
+    --differential-color: #4b280b;
+    --red-color: #9E7047;
+}
+
+.titulo{
+    padding-left: 20px;
+    font-weight: 600;
+}
+.subtitulo{
+    padding-left: 20px;
+    font-weight: 350;
+    margin-bottom: 2px;
+}
+.add-funcionario{
+    margin-right: 20px;
+    font-weight: 350;
+    margin-bottom: 2px;
+}
+.adicionar-funcionario{
+    background-color: var(--main-color);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    border: var(--differential-color) solid 1px;
+}
+.funcionarioform{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border-radius: 20px;
+}
+.add-produto{
+    margin-right: 20px;
+    font-weight: 350;
+    margin-bottom: 2px;
+}
+.adicionar-produto{
+    background-color: var(--main-color);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    border: var(--differential-color) solid 1px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.produtoform{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border-radius: 20px;
+}
+.caixa-entrada{
+    margin-bottom: 15px;
+    width: 500px;
+    height: 35px;
+    display: flex;
+}
+.label-text{
+    font-size: 20px;
+    font-weight: 550;
+    margin-bottom: 5px;
+    padding: 5px 20px 5px 20px;
+}
+.btn-add-principal{
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 250px;
+    cursor: pointer;
+    padding: 9px;
+    align-self: center;
+}
+.btn-add-principal:hover{
+    background-color: var(--contrast-color);
+    color: var(--dark-color);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.botoes{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+}
