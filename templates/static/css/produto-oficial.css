@@ -32,6 +32,13 @@ html, body{
     padding: 0 1rem;
     margin: 0 auto;
 }
+
+.att-produto{
+    background-color: white;
+    padding: 30px;
+    margin: 1rem 1;
+    border-radius: 3px;
+}
 .product-div{
     margin: 1rem 0;
     padding: 2rem 0;
@@ -86,5 +93,23 @@ html, body{
 }
 .btn-groups button .fas{
     margin-right: 8px;
+}
+
+.comentarios{
+background-color: #f0f0f0;
+padding: 30px;
+border-radius: 3px;
+}
+
+.comentarios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Define 3 colunas com largura igual */
+    grid-gap: 20px; /* Espaçamento entre os comentários */
+}
+
+.comentario {
+    background-color: #c2c2c2; /* Cor de fundo da caixa de comentário */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Borda arredondada */
 }
 

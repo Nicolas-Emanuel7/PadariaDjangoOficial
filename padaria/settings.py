@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-5em33dqz4w-1k6qu*pjvnuml7o-x*u_-)(&ta0h=*!z=t34the
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sistema-padaria-d2d54d16096c.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Definição de aplicativos instalados

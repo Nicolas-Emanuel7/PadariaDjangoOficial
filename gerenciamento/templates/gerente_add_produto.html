@@ -3,6 +3,8 @@
 
 {% block 'head' %}
     <link rel="stylesheet" href="{% static 'css/gerenciamento-oficial.css' %}">
+    <link rel="stylesheet" href="{% static 'css/produto-oficial.css' %}">
+    <link rel="stylesheet" href="{% static 'css/principal-oficial.css' %}">
 {% endblock %}
 
 {% block 'dashboard' %}
@@ -16,7 +18,7 @@
         </div>
     
 
-        <div id="add-produto" class="adicionar-produto" name="add-produto">
+        <div id="add-produto" class="container att-produto" name="add-produto">
             <form action="{% url 'gerente_add_produto' %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
                 {% csrf_token %}
                 <div class="produtoform">
@@ -54,7 +56,7 @@
                 <br>
                 <div class="add-ingredientes">
                     <h3>Ingredientes da receita</h3>
-                    <span class="btn-add-ingredientes" onclick="addIngrediente()">+ Adicionar um ingrediente</span>
+                    <span class="btn botao-add-carrinho btn-att" onclick="addIngrediente()">+ Adicionar um ingrediente</span>
                     <div class="ingredientes" id="form-ingrediente">
                         
                     </div>
@@ -62,7 +64,7 @@
                 <br>
                 <br>
                 <div class="botao">
-                    <input type="submit" value="Enviar" class="btn-add-principal">
+                    <input type="submit" value="Enviar" class="btn botao-add-carrinho btn-aceitar">
                 </div>
             </form>
         </div>

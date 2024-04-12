@@ -31,15 +31,11 @@
                                 <input type="text" class="form-control" placeholder="Telefone" name="telefone" value="{{telefone}}" >
                             </div>
                             <div class="col-md">
-                                <p>Endereço:</p>
-                                <input type="text" class="form-control" placeholder="Endereço" name="endereco" value="{{endereco}}" >
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
                                 <p>E-Mail:</p>
                                 <input type="email" class="form-control" placeholder="E-Mail" name="email" value="{{email}}" >
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md">
                                 <p>Senha:</p>
                                 <input type="password" class="form-control" placeholder="Senha" name="senha" value="{{senha}}" >
@@ -99,7 +95,6 @@
             document.querySelector('input[name="nome"]').value = data.nome;
             document.querySelector('input[name="sobrenome"]').value = data.sobrenome;
             document.querySelector('input[name="telefone"]').value = data.telefone;
-            document.querySelector('input[name="endereco"]').value = data.endereco;
             document.querySelector('input[name="email"]').value = data.email;
             document.querySelector('input[name="senha"]').value = data.senha;
         }

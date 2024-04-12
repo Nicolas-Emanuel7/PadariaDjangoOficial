@@ -8,6 +8,9 @@
 
 {% block 'dashboard' %}
 <body> <!-- Formulário de Cadastro -->
+    <div id="success-message" class="success-message hidden">
+        Cadastro bem sucedido!
+    </div>
       <div class="container" id="container">
         <div class="form-container sign-up">
             <form action="{% url 'usuario_cadastro' %}" method="POST">  <!-- O formulário envia dados para a URL 'cadastro' quando submetido -->
@@ -16,8 +19,8 @@
                 <span>Insira seus dados para se registrar</span>  <!-- Campos de entrada para nome, sobrenome, CPF, telefone, endereço, e-mail e senha -->
                 <input type="text" placeholder="Nome" name="nome" value="{{nome}}" />
                 <input type="text" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}" />
-                <input type="text" placeholder="CPF" name="cpf" value="{{cpf}}" />
-                <input type="text" placeholder="Telefone" name="telefone" value="{{telefone}}" />
+                <input type="text" placeholder="CPF" name="cpf" id="cpfInput" maxlength="14" oninput="formatarCPF(this)" value="{{cpf}}" />
+                <input type="text" placeholder="Telefone" name="telefone" id="telefoneInput" maxlength="14" oninput="formatarTelefone(this)" value="{{telefone}}" />
                 <input type="email" placeholder="E-mail" name="email" value="{{email}}" />
                 <input type="password" placeholder="Senha" name="senha" value="{{senha}}" />
                 <button class="button" value="Cadastrar">Cadastrar</button> <!-- Botão para submeter o formulário de cadastro -->
@@ -50,6 +53,37 @@
         </div>
       </div>
 </body>
+<script>
+    // Função para mostrar a mensagem de sucesso
+    function showSuccessMessage() {
+        var successMessage = document.getElementById("success-message");
+        successMessage.classList.remove("hidden");
+    }
+
+    document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita o envio padrão do formulário
+        
+        var formData = new FormData(this);
+        
+        fetch(this.action, {
+            method: this.method,
+            body: formData
+        })
+        .then(function(response) {
+            if (response.ok) {
+                // Mostra a mensagem de sucesso
+                showSuccessMessage();
+                
+                // Aqui você pode adicionar mais ações após o cadastro bem sucedido, como redirecionar para outra página
+            } else {
+                // Trata erros, se necessário
+            }
+        })
+        .catch(function(error) {
+            console.error('Erro:', error);
+        });
+    });
+</script>
 <script>
     const container = document.getElementById('container');
     const registerBtn = document.getElementById('register');

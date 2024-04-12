@@ -290,6 +290,9 @@ body{
     object-position: center;
     filter: brightness(0.8);
 }
+.detail-nome-produto{
+    height: 60px;
+}
 .detail-desc{
     display: flex;
     justify-content: space-between;
@@ -305,7 +308,7 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 100%; /* Defina o tamanho máximo que você deseja para o texto */
+    max-width: 290px; /* Defina o tamanho máximo que você deseja para o texto */
 }
 .price{
     color: var(--dark-color);
@@ -339,3 +342,32 @@ body{
     margin: 0px 5px 5px 25px;
 }
 
+.btn-att{
+    background-color: var(--red-color);
+    color: white;
+    width: auto;
+    margin: 0px;
+}
+
+.btn-excluir{
+    background-color: rgb(156, 0, 0);
+    color: white;
+    width: auto;
+}
+
+.btn-aceitar{
+    background-color: rgb(2, 152, 62);
+    color: white;
+    width: auto;
+}
+
+.label-text{
+    font-size: 20px;
+    font-weight: 550;
+    margin-bottom: 5px;
+    padding: 5px 15px 5px 15px;
+}
+.input-comentario{
+    background-color: #725c51;
+    padding: 30px;
+}

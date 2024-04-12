@@ -48,9 +48,9 @@
                                     <li>{{ ingrediente.nome_ingrediente }}</li>
                                 {% endfor %}
                         <div class = "btn-groups">
-                            <button type="button" onclick="dados_produto('{{produto.id_produto}}')" class="btn botao-add-carrinho">Atualizar Produto</button>
+                            <button type="button" onclick="dados_produto('{{produto.id_produto}}')" class="btn botao-add-carrinho btn-att">Atualizar Produto</button>
                             <!-- Botão para excluir produto -->
-                            <button onclick="confirmarExclusao('{{ produto.id_produto }}')">Excluir Produto</button> 
+                            <button type="button" onclick="confirmarExclusao('{{ produto.id_produto }}')" class="btn botao-add-carrinho btn-excluir">Excluir Produto</button> 
                         </div>
                         <!-- Modal de confirmação -->
                         <div id="modal-confirmacao" style="display: none;">
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div id="att-produto" class="adicionar-produto" name="att-produto" style="display: none;">
+        <div id="att-produto" class="container att-produto" name="att-produto" style="display: none;">
             <form action="{% url 'gerente_att_produto' produto.id_produto %}" method="POST" enctype="multipart/form-data" onsubmit="substituirVirgulaPorPonto()">
                 {% csrf_token %}
                 <div class="produtoform">
@@ -100,36 +100,38 @@
                 <br>
                 <div class="add-ingredientes">
                     <h3>Ingredientes da receita</h3>
-                    <span class="btn-add-ingredientes" onclick="addIngrediente()">+ Adicionar um ingrediente</span>
+                    <span class="btn botao-add-carrinho btn-att" onclick="addIngrediente()">+ Adicionar um ingrediente</span>
                     <div class="ingredientes" id="form-ingrediente">
                         
                     </div>
                 </div>
                 <div class="btn-groups">
                     <!-- Botão de cancelar -->
-                    <button type="button" onclick="cancelarAtualizacao()">Cancelar</button>
+                    <span onclick="cancelarAtualizacao()" class="btn botao-add-carrinho btn-excluir">Cancelar</span>
                     
-                    <input type="submit" value="Enviar" class="btn-add-principal">
+                    <input type="submit" value="Enviar" class="btn botao-add-carrinho btn-aceitar">
                 </div>
             </form>
         </div>
         <br>
 
-        {% if avaliacoes %}
-        <h2>Comentários:</h2>
-        <ul>
-            {% for avaliacao in avaliacoes %}
-                <li>
+        <div class="container comentarios">
+            {% if avaliacoes %}
+            <h2>Comentários:</h2>
+            <div class="comentarios-grid">
+                {% for avaliacao in avaliacoes %}
+                <div class="comentario">
                     <p><strong>Usuário:</strong> {{ avaliacao.usuario }}</p>
                     <p><strong>Comentário:</strong> {{ avaliacao.comentario }}</p>
                     <p><strong>Nota:</strong> {{ avaliacao.nota }}</p>
                     <p><strong>Data:</strong> {{ avaliacao.data }}</p>
-                </li>
-            {% endfor %}
-        </ul>
-        {% else %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
             <p>Não há comentários para este produto.</p>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 </body>
 

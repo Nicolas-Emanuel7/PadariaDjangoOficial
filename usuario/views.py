@@ -154,7 +154,6 @@ def usuario_perfil(request):
         user.first_name = request.POST.get('nome')
         user.last_name = request.POST.get('sobrenome')
         user.telefone = request.POST.get('telefone')
-        user.endereco = request.POST.get('endereco')
         user.email = request.POST.get('email')
         user.password = (request.POST.get('senha'))
         user.username = (request.POST.get('nome'))

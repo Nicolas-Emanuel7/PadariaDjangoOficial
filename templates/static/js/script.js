@@ -3,10 +3,10 @@ function addIngrediente() {
     
     var html = "<div class='row'>";
     html += "<div class='col-md'>";
-    html += "<input type='text' class='ingrediente-entrada' name='nome_ingrediente' placeholder='Nome do ingrediente'>";
+    html += "<input type='text' class='form-control' name='nome_ingrediente' placeholder='Nome do ingrediente'>";
     html += "</div>";
     html += "<div class='col-md'>";
-    html += "<input type='text' class='ingrediente-entrada'  name='unidade_Medida' placeholder='Unidade de medida' >";
+    html += "<input type='text' class='form-control'  name='unidade_Medida' placeholder='Unidade de medida' >";
     html += "</div>";
     html += "<div class='col-md'>";
     html += "<button type='button' onclick='removerIngrediente(this)' class='btn btn-danger'>Excluir</button>";
