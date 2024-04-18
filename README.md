@@ -32,4 +32,4 @@ Projeto de Engenharia de Software: Site de uma Padaria
 - nota_pedido
 - clonar uatzape
 
-### Requisitos Não-Funcionais
+[Slide de apresentação](https://www.canva.com/design/DAGCm0rDZO0/43RSoA1yeUqZ5WYNgj0AAw/edit?utm_content=DAGCm0rDZO0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
