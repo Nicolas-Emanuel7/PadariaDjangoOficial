@@ -1,4 +1,4 @@
-# PadariaDjangoOficial
+# Padaria Django Oficial
 Projeto de Engenharia de Software: Site de uma Padaria
 
 ### Requisitos Funcionais
