@@ -1,6 +1,12 @@
 # Padaria Django Oficial
 Projeto de Engenharia de Software: Site de uma Padaria
 
+## Componentes <br>
+Anabel Marinho Soares <br>
+Nicolas Emanuel Alves Costa <br>
+Thiago Luan Moreira Sousa <br>
+Ytalo Dias Costa
+
 ### Requisitos Funcionais
 **Funcionalidades do Gerenciamento:**
 - gerente_principal
