@@ -59,13 +59,12 @@ def gerente_perfil(request):
         user.first_name = request.POST.get('nome')
         user.last_name = request.POST.get('sobrenome')
         user.telefone = request.POST.get('telefone')
-        user.endereco = request.POST.get('endereco')
         user.email = request.POST.get('email')
         user.password = (request.POST.get('senha'))
         user.username = (request.POST.get('nome'))
         user.permissao = True
         user.save()
-        return redirect('gerente_perfil.html')
+        return redirect('gerente_perfil')
     return render(request, 'gerente_perfil.html')
 
 @verifica_permissao
@@ -184,8 +183,8 @@ def gerente_att_funcionario(request):
         funcionarioAtt.salario = request.POST.get('salario')
         print(funcionarioAtt)
         funcionarioAtt.save()
-        return redirect('gerente_lista_funcionario')
-    return redirect('gerente_lista_funcionario')
+        return redirect('gerente_lista_funcionarios')
+    return redirect('gerente_lista_funcionarios')
     
 #funções de deletar
 
@@ -281,7 +280,6 @@ def dados_perfil(request):
             'nome': user.first_name,
             'sobrenome': user.last_name,
             'telefone': user.telefone,
-            'endereco': user.endereco,
             'email': user.email,
             'senha': user.password,
         }
@@ -289,7 +287,7 @@ def dados_perfil(request):
         return JsonResponse(data)
         
 #Função de exclusão de perfil
-def exclui_perfil(request):
+def excluir_perfil(request):
     if request.method == 'POST':
         user = request.user
         user.delete()

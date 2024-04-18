@@ -72,7 +72,7 @@ function update_funcionario(){
     salario = document.getElementById("salario").value;
     console.log(salario)
 
-    fetch('/gerenciamento/gerente_att_funcionario/' + id, {
+    fetch('/gerenciamento/gerente_att_funcionario/', {
         method: "POST",
         headers: {
             'X-CSRFToken': csrftoken,
@@ -284,13 +284,7 @@ function updateUserOrder(id_produto, action) {
     });
 }
 
-// Função para mostrar o modal de confirmação
-function confirmarExclusao(produtoId) {
-    var modal = document.getElementById('modal-confirmacao');
-    modal.style.display = 'block';
-    // Guarde o ID do produto a ser excluído em uma variável global para acessá-lo depois
-    window.produtoIdParaExcluir = produtoId;
-}
+
 
 // Função para fechar o modal de confirmação
 function fecharModal() {
@@ -352,7 +346,7 @@ function excluirPerfil() {
     .then(response => {
         if (response.ok) {
             alert("Perfil excluído com sucesso!");
-            window.location.href = '/usuario/cadastro/';
+            window.location.href = '/usuario/usuario_cadastro/';
         } else {
             alert("Ocorreu um erro ao excluir o perfil.");
         }

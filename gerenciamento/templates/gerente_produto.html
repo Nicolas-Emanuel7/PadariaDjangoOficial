@@ -50,13 +50,13 @@
                         <div class = "btn-groups">
                             <button type="button" onclick="dados_produto('{{produto.id_produto}}')" class="btn botao-add-carrinho btn-att">Atualizar Produto</button>
                             <!-- Botão para excluir produto -->
-                            <button type="button" onclick="confirmarExclusao('{{ produto.id_produto }}')" class="btn botao-add-carrinho btn-excluir">Excluir Produto</button> 
+                            <button type="button" onclick="confirmarExclusaoProduto('{{ produto.id_produto }}')" class="btn botao-add-carrinho btn-excluir">Excluir Produto</button> 
                         </div>
                         <!-- Modal de confirmação -->
                         <div id="modal-confirmacao" style="display: none;">
                             <p>Deseja realmente excluir o produto?</p>
                             <a class="btn btn-danger" href="{% url 'gerente_excluir_produto' produto.id_produto %}">Excluir</a>
-                            <button onclick="fecharModal()">Cancelar</button>
+                            <button class="btn botao-add-carrinho btn-att" onclick="fecharModal()">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                             <p class="label-text">Categoria</p>
                             <select name="categoria" class="form-control">
                                 {% for categoria in categorias %}
-                                    <option value="{{ categoria.0 }}">{{ produto.categoria }}</option>
+                                    <option value="{{ categoria.0 }}">{{ categoria.1 }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -121,7 +121,7 @@
             <div class="comentarios-grid">
                 {% for avaliacao in avaliacoes %}
                 <div class="comentario">
-                    <p><strong>Usuário:</strong> {{ avaliacao.usuario }}</p>
+                    <p><strong>{{ avaliacao.usuario.first_name }} {{avaliacao.usuario.last_name}}</strong></p>
                     <p><strong>Comentário:</strong> {{ avaliacao.comentario }}</p>
                     <p><strong>Nota:</strong> {{ avaliacao.nota }}</p>
                     <p><strong>Data:</strong> {{ avaliacao.data }}</p>
@@ -135,6 +135,15 @@
     </div>
 </body>
 
+<script>
+    // Função para mostrar o modal de confirmação
+    function confirmarExclusaoProduto(produtoId) {
+        var modal = document.getElementById('modal-confirmacao');
+        modal.style.display = 'block';
+        // Guarde o ID do produto a ser excluído em uma variável global para acessá-lo depois
+        window.produtoIdParaExcluir = produtoId;
+    }
+</script>
 <script src="{% static 'js/script.js' %}"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

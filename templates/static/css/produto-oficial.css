@@ -101,15 +101,10 @@ padding: 30px;
 border-radius: 3px;
 }
 
-.comentarios-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Define 3 colunas com largura igual */
-    grid-gap: 20px; /* Espaçamento entre os comentários */
-}
-
 .comentario {
-    background-color: #c2c2c2; /* Cor de fundo da caixa de comentário */
+    background-color: var(--contrast-color); /* Cor de fundo da caixa de comentário */
     padding: 10px; /* Espaçamento interno */
     border-radius: 5px; /* Borda arredondada */
+    margin: 10px;
 }
 

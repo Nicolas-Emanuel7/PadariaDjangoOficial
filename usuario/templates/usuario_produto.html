@@ -86,7 +86,7 @@
             <div class="comentarios-grid">
                 {% for avaliacao in avaliacoes %}
                 <div class="comentario">
-                    <p><strong>Usuário:</strong> {{ avaliacao.usuario }}</p>
+                    <p><strong>{{ avaliacao.usuario.first_name }} {{avaliacao.usuario.last_name}}</strong></p>
                     <p><strong>Comentário:</strong> {{ avaliacao.comentario }}</p>
                     <p><strong>Nota:</strong> {{ avaliacao.nota }}</p>
                     <p><strong>Data:</strong> {{ avaliacao.data }}</p>
